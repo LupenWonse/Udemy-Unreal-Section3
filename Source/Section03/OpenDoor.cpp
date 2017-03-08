@@ -33,7 +33,19 @@ void UOpenDoor::OpenDoor()
 
 	// Set door rotation
 	Owner->SetActorRotation(NewRotation);
-	GetOwner()->SetActorRotation(NewRotation);
+	GetOwner()->SetActorRelativeRotation(NewRotation);
+}
+
+void UOpenDoor::CloseDoor()
+{
+	// Find the owning actor
+	AActor* Owner = GetOwner();
+	// Create a rotator
+	FRotator NewRotation = FRotator(0.0f, 0.f, 0.0f);
+
+	// Set door rotation
+	Owner->SetActorRotation(NewRotation);
+	GetOwner()->SetActorRelativeRotation(NewRotation);
 }
 
 
@@ -48,6 +60,11 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	if (PressurePlate->IsOverlappingActor(ActorThatOpens)) {
 		// If the actor that opens this door is in the trigger volume
 		OpenDoor();
+		DoorLastOpenTime = GetWorld()->GetTimeSeconds();
+	}
+
+	if (DoorLastOpenTime + DoorCloseDelay < GetWorld()->GetTimeSeconds()) {
+		CloseDoor();
 	}
 
 }
