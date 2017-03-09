@@ -21,31 +21,24 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+	// Find the owning actor
+	Owner = GetOwner();
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 void UOpenDoor::OpenDoor()
 {
-	// Find the owning actor
-	AActor* Owner = GetOwner();
-	// Create a rotator
-	FRotator NewRotation = FRotator(0.0f, 90.0f, 0.0f);
-
 	// Set door rotation
-	Owner->SetActorRotation(NewRotation);
-	GetOwner()->SetActorRelativeRotation(NewRotation);
+	//Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+	if (Owner->GetActorRotation().Yaw < OpenAngle) {
+		Owner->AddActorLocalRotation(FRotator(0.0f, 1.0f, 0.0f));
+	}
 }
 
 void UOpenDoor::CloseDoor()
 {
-	// Find the owning actor
-	AActor* Owner = GetOwner();
-	// Create a rotator
-	FRotator NewRotation = FRotator(0.0f, 0.f, 0.0f);
-
 	// Set door rotation
-	Owner->SetActorRotation(NewRotation);
-	GetOwner()->SetActorRelativeRotation(NewRotation);
+	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 }
 
 
