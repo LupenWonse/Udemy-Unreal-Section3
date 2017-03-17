@@ -23,6 +23,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+private:
+	// How far ahead can the player reach
+	float reach = 100.f;
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
 		
 	
 };
