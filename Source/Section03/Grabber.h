@@ -27,7 +27,10 @@ private:
 	// How far ahead can the player reach
 	float reach = 100.f;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
-
+	UInputComponent* InputComponent = nullptr;
+	// Grab the object in reach
+	void Grab();
+	void Release();
 		
 	
 };
