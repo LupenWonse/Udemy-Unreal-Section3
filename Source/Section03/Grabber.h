@@ -19,9 +19,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void SetupInputComponent();
+
+	void FindPhysicsHandleComponent();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	FHitResult GetFirstBodyInReach() const;
 
 private:
 	// How far ahead can the player reach
