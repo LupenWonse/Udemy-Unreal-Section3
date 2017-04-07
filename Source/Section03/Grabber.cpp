@@ -64,22 +64,20 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 FHitResult UGrabber::GetFirstBodyInReach()
 {
 	/// Linetrace (Ray-cast) out to reach distance
-	FHitResult Hit;
+	FHitResult HitResult;
 
 	/// Setup query
 	FCollisionQueryParams CollisionParameters(FName(TEXT("")), false, GetOwner());
 
 	GetWorld()->LineTraceSingleByObjectType(
-		OUT Hit,
+		OUT HitResult,
 		GetReachLineStart(),
 		GetReachLineEnd(),
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
 		CollisionParameters
 	);
-	return Hit;
+	return HitResult;
 }
-
-
 
 FVector UGrabber::GetReachLineStart() {
 	// Get the player viewpoint this tick
