@@ -31,9 +31,10 @@ void UOpenDoor::OpenDoor()
 {
 	// Set door rotation
 	//Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
-	if (Owner->GetActorRotation().Yaw < OpenAngle) {
+	if (Owner && Owner->GetActorRotation().Yaw < OpenAngle) {
 		Owner->AddActorLocalRotation(FRotator(0.0f, 1.0f, 0.0f));
 	}
+
 }
 
 void UOpenDoor::CloseDoor()
@@ -62,7 +63,12 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 	float totalMass = 0.f;
-
+	if (!PressurePlate)
+	{ 
+		UE_LOG(LogTemp, Error, TEXT("OpenDoor missing pressure plate"));
+		return totalMass; 
+	}
+	
 	// Find all overalapping actors
 	TArray<AActor*> overlappingActors;
 	PressurePlate->GetOverlappingActors(OUT overlappingActors);
